@@ -1,0 +1,13 @@
+QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
+Start time: 21:37:29 on Nov 15,2026
+vlog -sv -O0 "+acc=rn" -f compile.f 
+-- Compiling module dut_spi_top
+-- Compiling interface dut_spi_top_if
+-- Compiling module spi_master_tb
+-- Compiling module tb_top
+
+Top level modules:
+	spi_master_tb
+	tb_top
+End time: 21:37:29 on Nov 15,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

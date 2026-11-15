@@ -1,0 +1,124 @@
+m255
+K4
+z2
+Z0 !s99 nomlopt
+R0
+R0
+!s11f vlog 2021.2_1 2021.05, May 15 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/home/thanhvuong/UVM_COOKBOOK/sim
+T_opt
+!s110 1794753454
+V2GTdj``K`<[d:WfcX]02R1
+04 13 4 work spi_master_tb fast 0
+=1-000ae431a4f1-6af9c3ae-121a4-3a86
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work
+Z2 tCvgOpt 0
+n@_opt
+OL;O;2021.2_1;73
+vdut_spi_top
+Z3 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z4 !s110 1794753449
+!i10b 1
+!s100 WO2@@?ncd2Z=K7W>]Rlf13
+I4g<;0O`S`PY;DT;S:e:9N3
+S1
+R1
+w1794718286
+8../rtl/dut_spi_top.sv
+F../rtl/dut_spi_top.sv
+!i122 5
+L0 11 135
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+Z6 OL;L;2021.2_1;73
+r1
+!s85 0
+31
+Z7 !s108 1794753449.000000
+Z8 !s107 ../tb/uvm_tb_top.sv|../tb/spi_master_tb.sv|../sv/dut_spi_top_if.sv|../rtl/dut_spi_top.sv|
+Z9 !s90 -sv|-O0|+acc=rn|-f|compile.f|
+!s101 -O0
+!i113 0
+Z10 o-sv -O0 +acc=rn -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+Ydut_spi_top_if
+R3
+R4
+!i10b 1
+!s100 ]25ckml2FfmFj@P^zhgUL0
+Io9?0f3OiARc?9KAD4fVMO0
+S1
+R1
+w1794753125
+8../sv/dut_spi_top_if.sv
+F../sv/dut_spi_top_if.sv
+!i122 5
+L0 2 0
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!s101 -O0
+!i113 0
+R10
+R2
+vspi_master_tb
+R3
+R4
+!i10b 1
+!s100 aUK>V`4KDiX]<j5g>omm>3
+I6fc86I0FEFER5:NREIQbo1
+S1
+R1
+w1794753319
+8../tb/spi_master_tb.sv
+F../tb/spi_master_tb.sv
+!i122 5
+L0 3 127
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!s101 -O0
+!i113 0
+R10
+R2
+vtb_top
+R3
+R4
+!i10b 1
+!s100 n`b`BiBKj;[lZT:En]Efm3
+IkJP?bl5Eo7fUVVaZ2[WOV1
+S1
+R1
+w1794753339
+8../tb/uvm_tb_top.sv
+F../tb/uvm_tb_top.sv
+!i122 5
+L0 2 2
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!s101 -O0
+!i113 0
+R10
+R2
