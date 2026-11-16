@@ -8,7 +8,7 @@ module spi_master_tb;
     assign spi.spi_miso = spi.spi_mosi;
 
     integer rising_edges = 0;
-
+    // Create apb bus clock is 100 MHz (10 ns period)
     initial apb.clk = 1'b0;
     always #5 apb.clk = ~apb.clk;
 
@@ -91,6 +91,7 @@ module spi_master_tb;
 
     logic [31:0] value;
     initial begin
+        // Initialize APB bus signals
         apb.rst_n = 1'b0;
         apb.psel = 1'b0;
         apb.penable = 1'b0;
@@ -99,10 +100,11 @@ module spi_master_tb;
         apb.pwdata = 32'h0;
         $display("[%0t] INFO: SPI master testbench started; holding reset", $time);
         repeat (4) @(negedge apb.clk);
+        // Release reset and wait for a few clock cycles
         apb.rst_n = 1'b1;
         $display("[%0t] INFO: Reset released", $time);
         repeat (2) @(negedge apb.clk);
-
+        // Check that the APB bus is ready and not in error state
         if (apb.pready !== 1'b1 || apb.pslverr !== 1'b0)
             $fatal(1, "Unexpected APB ready/error response");
 
