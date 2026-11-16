@@ -1,6 +1,6 @@
 # vsim -l spi_master_tb.log -assertdebug -c spi_master_tb -do "log -r /*; run -all;" 
-# Start time: 21:37:33 on Nov 15,2026
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Start time: 23:20:45 on Nov 15,2026
+# ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vopt-2009) At least one design unit was compiled with optimization level -O0 or -O1.
 # Use vdir -l command to find such design units.
 # ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
@@ -39,5 +39,5 @@
 # PASS: APB register access and two SPI mode-0 loopback transfers
 # ** Note: $finish    : ../tb/spi_master_tb.sv(122)
 #    Time: 990 ns  Iteration: 1  Instance: /spi_master_tb
-# End time: 21:37:36 on Nov 15,2026, Elapsed time: 0:00:03
+# End time: 23:20:48 on Nov 15,2026, Elapsed time: 0:00:03
 # Errors: 0, Warnings: 2
