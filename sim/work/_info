@@ -9,20 +9,45 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 d/home/thanhvuong/UVM_COOKBOOK/sim
+Z0 d/home/thanhvuong/SPI_APB/sim
 T_opt
-!s110 1794759646
-VlW04zENAh4dKOf[Y2>3Bh0
+!s110 1794855377
+VHi1mUHkGi3W_^<6A_Q]Y;0
 04 13 4 work spi_master_tb fast 0
-=1-000ae431a4f1-6af9dbde-17661-41e4
+=1-000ae431a4f1-6afb51d0-f08be-6b56
 !s124 OEM100
 o-quiet -auto_acc_if_foreign -work work
 Z1 tCvgOpt 0
 n@_opt
 OL;O;2021.2_1;73
-vdut_spi_top
+Yapb_if
 Z2 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z3 !s110 1794759642
+Z3 !s110 1794855373
+!i10b 1
+!s100 L2]C48WcH^hlnW?TACPW:3
+IN5]>J8EG97M`if2[Jg0>N0
+S1
+R0
+Z4 w1794855320
+8../sv/apb_if.sv
+F../sv/apb_if.sv
+!i122 1
+Z5 L0 2 0
+Z6 VDg1SIo80bB@j0V0VzS_@n1
+Z7 OL;L;2021.2_1;73
+r1
+!s85 0
+31
+Z8 !s108 1794855373.000000
+Z9 !s107 ../tb/uvm_tb_top.sv|../tb/spi_master_tb.sv|../rtl/dut_spi_top.sv|../sv/spi_if.sv|../sv/apb_if.sv|
+Z10 !s90 -sv|-O0|+acc=rn|-f|compile.f|
+!s101 -O0
+!i113 0
+Z11 o-sv -O0 +acc=rn -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vdut_spi_top
+R2
+R3
 !i10b 1
 !s100 WO2@@?ncd2Z=K7W>]Rlf13
 I4g<;0O`S`PY;DT;S:e:9N3
@@ -33,67 +58,67 @@ w1794718286
 F../rtl/dut_spi_top.sv
 !i122 1
 L0 11 135
-Z4 VDg1SIo80bB@j0V0VzS_@n1
-Z5 OL;L;2021.2_1;73
+R6
+R7
 r1
 !s85 0
 31
-Z6 !s108 1794759642.000000
-Z7 !s107 ../tb/uvm_tb_top.sv|../tb/spi_master_tb.sv|../sv/dut_spi_top_if.sv|../rtl/dut_spi_top.sv|
-Z8 !s90 -sv|-O0|+acc=rn|-f|compile.f|
+R8
+R9
+R10
 !s101 -O0
 !i113 0
-Z9 o-sv -O0 +acc=rn -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R11
 R1
-Ydut_spi_top_if
+Yspi_if
 R2
 R3
 !i10b 1
-!s100 ]25ckml2FfmFj@P^zhgUL0
-Io9?0f3OiARc?9KAD4fVMO0
+!s100 MMUW4fBR44hFh`T5NbU;:2
+I^6Q5mT05fQSNZ5XQHn@3o1
 S1
 R0
-w1794753125
-8../sv/dut_spi_top_if.sv
-F../sv/dut_spi_top_if.sv
-!i122 1
-L0 2 0
 R4
+8../sv/spi_if.sv
+F../sv/spi_if.sv
+!i122 1
 R5
+R6
+R7
 r1
 !s85 0
 31
-R6
-R7
 R8
+R9
+R10
 !s101 -O0
 !i113 0
-R9
+R11
 R1
 vspi_master_tb
 R2
 R3
 !i10b 1
-!s100 aUK>V`4KDiX]<j5g>omm>3
-I6fc86I0FEFER5:NREIQbo1
+!s100 VT>:RaAV<XoSW@W8Qc`M11
+IKFlEOI<noY_jTXRFPQK9a1
 S1
 R0
-w1794753319
+w1794855248
 8../tb/spi_master_tb.sv
 F../tb/spi_master_tb.sv
 !i122 1
 L0 3 127
-R4
-R5
+R6
+R7
 r1
 !s85 0
 31
-R6
-R7
 R8
+R9
+R10
 !s101 -O0
 !i113 0
-R9
+R11
 R1
 vtb_top
 R2
@@ -108,15 +133,15 @@ w1794753339
 F../tb/uvm_tb_top.sv
 !i122 1
 L0 2 2
-R4
-R5
+R6
+R7
 r1
 !s85 0
 31
-R6
-R7
 R8
+R9
+R10
 !s101 -O0
 !i113 0
-R9
+R11
 R1
