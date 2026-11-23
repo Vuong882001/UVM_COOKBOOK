@@ -1,6 +1,10 @@
 #!/bin/sh
 
 QUESTA_HOME="$HOME/questasim"
+#export GUI
+export DISPLAY=:0
+export WAYLAND_DISPLAY=wayland-0
+export XDG_RUNTIME_DIR=/run/user/1000
 
 # Save current directory
 CURRENT_DIR=$(pwd)

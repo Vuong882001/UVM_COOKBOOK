@@ -1,2 +1,2 @@
-../tb/spi_master_tb.sv
+//../tb/spi_master_tb.sv
 ../tb/uvm_tb_top.sv

@@ -1,8 +1,9 @@
 :# Questa/ModelSim flow, patterned after /home/thanhvuong/UVM/sim/Makefile
 
-TB_NAME   ?= spi_master_tb
-TESTNAME  ?= spi_master_tb
-VERBOSITY ?= UVM_HIGH
+TB_NAME       ?= tb_top
+TESTNAME  ?= base_test
+UVM_VERBOSITY ?= UVM_LOW
+TESTNAME      ?= $(UVM_TESTNAME)
 
 .PHONY: build compile run run_wave exec_wave clean
 
@@ -13,12 +14,15 @@ build compile:
 
 run: compile
 	vsim -l $(TESTNAME).log -assertdebug -c $(TB_NAME) \
+	    +UVM_TESTNAME=$(TESTNAME) +UVM_VERBOSITY=$(UVM_VERBOSITY) \
 	    -do "log -r /*; run -all;"
+all: build run
 
 run_wave: compile
 	vsim -debugDB -l $(TESTNAME).log -voptargs=+acc -assertdebug \
 	    -wlf $(TESTNAME).wlf \
-	    -c $(TB_NAME) -do "log -r /$(TB_NAME)/**; run -all;"
+	    -c $(TB_NAME) +UVM_TESTNAME=$(UVM_TESTNAME) \
+	    +UVM_VERBOSITY=$(UVM_VERBOSITY) -do "log -r /$(TB_NAME)/**; run -all;"
 
 exec_wave:
 	vsim -i
