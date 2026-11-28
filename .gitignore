@@ -1,2 +1,5 @@
 # Protect original DUT RTL
 /rtl/dut_spi_top.sv
+/sim/compile.log
+/sim/modelsim.ini
+/sim/work/
