@@ -4,12 +4,14 @@ class spi_test_base extends uvm_test;
 
 //Component nembers for the test class.
 spi_env_cfg env_cfg;
+spi_test_cfg test_cfg;
 
 //Method to build the test class.
 function void build_phase(uvm_phase phase);
     super.build_phase(phase);
 
     env_cfg = spi_env_cfg::type_id::create("env_cfg");
+    test_cfg = spi_test_cfg::type_id::create("test_cfg");
 
     if (!uvm_config_db#(virtual apb_if)::get(this, "", "apb_vif", env_cfg.apb_vif))
         `uvm_fatal("SPI_CFG", "tb_top did not provide apb_vif")
@@ -23,6 +25,9 @@ function void build_phase(uvm_phase phase);
 
     // The spi_env instance can retrieve this as "spi_cfg" in build_phase.
     uvm_config_db#(spi_env_cfg)::set(this, "spi_env", "spi_cfg", env_cfg);
+    // Tests can override test_cfg after super.build_phase(); the environment
+    // receives the same object handle and can pass it to sequences.
+    uvm_config_db#(spi_test_cfg)::set(this, "spi_env", "test_cfg", test_cfg);
 endfunction : build_phase   
 
 extern virtual function void configure_apb_agent();

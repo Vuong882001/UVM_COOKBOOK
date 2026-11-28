@@ -3,5 +3,6 @@ package test_pkg;
   import vip_pkg::*;
   `include "uvm_macros.svh"
 
+  `include "spi_test_cfg.sv"
   `include "spi_base_test.sv"
 endpackage : test_pkg

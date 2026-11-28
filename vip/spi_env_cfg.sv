@@ -19,11 +19,6 @@ class spi_env_cfg extends uvm_object;
   bit has_scoreboard = 1'b1;
   bit has_coverage = 1'b1;
 
-  // Default DUT setup for tests; tests may override these before run_phase.
-  bit         dut_master_mode = 1'b1;
-  logic [15:0] spi_divider = 16'd2;
-  bit         completion_irq_enable = 1'b1;
-
   `uvm_object_utils_begin(spi_env_cfg)
     `uvm_field_enum(uvm_active_passive_enum, apb_agent_active, UVM_DEFAULT)
     `uvm_field_enum(uvm_active_passive_enum, spi_agent_active, UVM_DEFAULT)
@@ -32,9 +27,6 @@ class spi_env_cfg extends uvm_object;
     `uvm_field_int(has_irq_monitor, UVM_DEFAULT)
     `uvm_field_int(has_scoreboard, UVM_DEFAULT)
     `uvm_field_int(has_coverage, UVM_DEFAULT)
-    `uvm_field_int(dut_master_mode, UVM_DEFAULT)
-    `uvm_field_int(spi_divider, UVM_DEFAULT)
-    `uvm_field_int(completion_irq_enable, UVM_DEFAULT)
   `uvm_object_utils_end
 
   function new(string name = "spi_env_cfg");
