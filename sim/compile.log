@@ -1,0 +1,21 @@
+QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
+Start time: 21:50:42 on Nov 28,2026
+vlog -sv -O0 "+acc=rn" -f compile.f 
+-- Compiling interface apb_if
+-- Compiling interface spi_if
+-- Compiling interface irq_if
+-- Compiling module dut_spi_top
+-- Compiling package vip_pkg
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+** Note: (vlog-2286) ../vip/vip_pkg.sv(3): Using implicit +incdir+/home/thanhvuong/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+-- Compiling package test_pkg
+-- Importing package vip_pkg
+-- Compiling package tb_top_pkg
+-- Importing package test_pkg
+-- Compiling module tb_top
+-- Importing package tb_top_pkg
+
+Top level modules:
+	tb_top
+End time: 21:50:43 on Nov 28,2026, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

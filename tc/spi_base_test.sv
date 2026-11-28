@@ -21,8 +21,8 @@ function void build_phase(uvm_phase phase);
     if (!env_cfg.validate())
         `uvm_fatal("SPI_CFG", "SPI environment configuration is invalid")
 
-    // The environment can retrieve this as "cfg" from its build_phase.
-    uvm_config_db#(spi_env_cfg)::set(this, "env", "cfg", env_cfg);
+    // The spi_env instance can retrieve this as "spi_cfg" in build_phase.
+    uvm_config_db#(spi_env_cfg)::set(this, "spi_env", "spi_cfg", env_cfg);
 endfunction : build_phase   
 
 extern virtual function void configure_apb_agent();
@@ -43,7 +43,7 @@ function void spi_test_base::configure_apb_agent();
  //cfg.no_select_lines = 1;
  //cfg.start_address[0] = 32'h0;
  //cfg.range[0] = 32'h18;
-endfunction: 
+endfunction : configure_apb_agent
 
 
 

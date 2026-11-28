@@ -2,6 +2,7 @@
 `timescale 1ns/1ps
 module tb_top;
 import uvm_pkg::*;
+import tb_top_pkg::*;
 
 apb_if apb();
 spi_if spi();

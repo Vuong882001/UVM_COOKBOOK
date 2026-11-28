@@ -9,3 +9,4 @@ class spi_env extends uvm_env;
     super.build_phase(phase);
     //spi_agent_h = spi_agent::type_id::create("spi_agent_h", this);
   endfunction : build_phase
+endclass : spi_env

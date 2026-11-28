@@ -5,19 +5,6 @@ import uvm_pkg::*;
 `include "uvm_macros.svh"
 
 class spi_env_cfg extends uvm_object;
-  `uvm_object_utils_begin(spi_env_cfg)
-    `uvm_field_enum(uvm_active_passive_enum, apb_agent_active, UVM_DEFAULT)
-    `uvm_field_enum(uvm_active_passive_enum, spi_agent_active, UVM_DEFAULT)
-    `uvm_field_int(has_apb_agent, UVM_DEFAULT)
-    `uvm_field_int(has_spi_agent, UVM_DEFAULT)
-    `uvm_field_int(has_irq_monitor, UVM_DEFAULT)
-    `uvm_field_int(has_scoreboard, UVM_DEFAULT)
-    `uvm_field_int(has_coverage, UVM_DEFAULT)
-    `uvm_field_int(dut_master_mode, UVM_DEFAULT)
-    `uvm_field_int(spi_divider, UVM_DEFAULT)
-    `uvm_field_int(completion_irq_enable, UVM_DEFAULT)
-  `uvm_object_utils_end
-
   // Virtual interfaces supplied by tb_top through uvm_config_db.
   virtual apb_if apb_vif;
   virtual spi_if spi_vif;
@@ -33,9 +20,22 @@ class spi_env_cfg extends uvm_object;
   bit has_coverage = 1'b1;
 
   // Default DUT setup for tests; tests may override these before run_phase.
-  bit        dut_master_mode = 1'b1;
+  bit         dut_master_mode = 1'b1;
   logic [15:0] spi_divider = 16'd2;
-  bit        completion_irq_enable = 1'b1;
+  bit         completion_irq_enable = 1'b1;
+
+  `uvm_object_utils_begin(spi_env_cfg)
+    `uvm_field_enum(uvm_active_passive_enum, apb_agent_active, UVM_DEFAULT)
+    `uvm_field_enum(uvm_active_passive_enum, spi_agent_active, UVM_DEFAULT)
+    `uvm_field_int(has_apb_agent, UVM_DEFAULT)
+    `uvm_field_int(has_spi_agent, UVM_DEFAULT)
+    `uvm_field_int(has_irq_monitor, UVM_DEFAULT)
+    `uvm_field_int(has_scoreboard, UVM_DEFAULT)
+    `uvm_field_int(has_coverage, UVM_DEFAULT)
+    `uvm_field_int(dut_master_mode, UVM_DEFAULT)
+    `uvm_field_int(spi_divider, UVM_DEFAULT)
+    `uvm_field_int(completion_irq_enable, UVM_DEFAULT)
+  `uvm_object_utils_end
 
   function new(string name = "spi_env_cfg");
     super.new(name);
