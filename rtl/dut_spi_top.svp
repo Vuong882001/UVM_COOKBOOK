@@ -1,0 +1,88 @@
+// APB-programmable SPI controller supporting master and slave roles.
+//
+// Byte register map:
+//   0x00 CTRL       [0] START (write 1; accepted only in master mode)
+//   0x04 STATUS     [0] BUSY, [1] DONE (sticky until next transfer)
+//   0x08 TXDATA     [7:0] transmit data, MSB first
+//   0x0c RXDATA     [7:0] last received byte
+//   0x10 DIVIDER    [15:0] system-clock cycles per SCLK half-period (master)
+//   0x14 CONFIG     [0] MASTER_MODE (1=master, 0=slave; writable while idle)
+//   0x18 IRQ_ENABLE [0] transfer-complete interrupt enable
+//   0x1c IRQ_STATUS[0] transfer-complete pending, write 1 to clear
+//
+// The master generates SPI mode 0. In slave mode, SCLK/CS/MOSI are sampled
+// in the APB clock domain; slave SCLK must be sufficiently slower than clk
+// (at least four clk cycles per SCLK half-period). Each SPI signal is one
+// resolved pad: CONFIG.MASTER_MODE controls which side drives each pad.
+module dut_spi_top (
+    input  logic        clk,
+    input  logic        rst_n,
+
+    // APB3 slave interface
+    input  logic        psel,
+    input  logic        penable,
+    input  logic        pwrite,
+    input  logic [7:0]  paddr,
+    input  logic [31:0] pwdata,
+    output logic [31:0] prdata,
+    output logic        pready,
+    output logic        pslverr,
+
+    // One physical SPI bus shared by master and slave roles.
+    inout  wire         spi_sclk,
+    inout  wire         spi_cs_n,
+    inout  wire         spi_mosi,
+    inout  wire         spi_miso,
+
+    output logic        irq
+);
+    `protected
+
+    MTI!#jT}E.AHDR:jl,Xx]_!@AJ^T[_3Q_]n~S%[>hN!>aYBF]?I@!'Dnz*i^slB3lcB=x,K}r[R'
+    2u72Bk=o@!^5,_|\<'oF)HEiQ}YD[9eH]<.&pWE,IZrAOZlAGT'Ku*n?WlT\G7=XdSIn+Tu<I{vm
+    oV]_{KzTo?7A*$^@oEwrD$XV@B5ey*Q]pK=eA;_1Wze=HlRW5}K<>5swo,a*z?Ep3s{o^V+oZR4\
+    w\C1;C>,$,x=Z;xueA=lD5@0,eh!wlAv_}'[DpsjSK{*#6%L/,JZ+:mlmVaTw{X5$\l^n}{1k'|1
+    }ZWpOv;1w^5E{Bo[NCQA^CuX>*u\e}*Orz=r,X'av+_U_<1B$SDllBpW,X,6V'!TZD[T}@p\TVAp
+    aeV#Y2OGE#u^*T]<$2u[KU[aF^B\Y>+R3;U!Jms?a{1<Tmx->[@uI1i5icI=C~}#$C->]Wrxpa:o
+    izHW7zC?eUH6]kY?{_#V@C!][,{Ie(BiA~5CV#fl-+o[X@kr;~o}k73_{z7v_YjK-7ZYE{Wv]ovo
+    jIDu<enswIa[7Dr=VvBt,5xp}QA[QY[eI@]B,v'$Iu33!aOxza@k}_xTY<ziKEK,!UW+CAuGu[iD
+    YaK^W'3<s]?s#}k_DiIG,wrBO,^XUp,}x"laBmIvQslaAozBOp>H]Z?js!BGpTB;,!#Eu+{H='}^
+    ~O<oeO<[>uxZY\0H-YU8FEppe*JX*$=Z[$Yi@&B_Ix'3}j*DQ^pUwv5{HW/+OmGG<=Ww>5vx#{eR
+    $A$5!ZB&3Yv_)1GV'wrz;xC]s_B\DD=T!#[RDu[I]*VaE/}5aRV*CxY{B$I<l<ZR]#YC{=IpBsFm
+    [jQ+UH*Rks[7<H>^#5!]>lvQ!!1UvjB^U$po#z_VU[^\@lHbVQZZ)Y>*Kc!+lz}*1uw$e2k''icD
+    XDD-<\U!}-<@ekHRV2u;}]}\+O*<7DZUoma1arOr!jR2XZ3=${2R_!o>DkIp{A^,BrDmDp;RGn@v
+    C?ly^dFx-jupuUerk$]=B!l{$]@;H5',iweEv~;A\{[1w^YLCIsBEHY''\*2=B?BqCDHupmB^}uE
+    z#_\1u6ga$\*~elpTQU]ae$uwxm*kX$zsk<xQ32Kl5QvImJx'bg5'@~U}XO}kWGu9;7ZJ'Qr;lv2
+    7*>BB?GQH<XlBUT7uD#v~|RVEWx2]{e!<Il7R2RJs7RYVx'J;XO'X{=**\O!IZax{{,t"[#e!v@5
+    p*wQ+Jo1mju86ekATzA!rP_CnTY#<=GWnniOeBX<{uuEEi'C$YQ\p<iUD\}TopVUXnZ<C7\2TIeu
+    -IY|Bs3B?z='{}z=C]~zk-wTe,B^w]Yi?-130XxWRV2$,7ROK,,Hx*pDXWE~{YGu+\a$UE+OGaeR
+    [=uK-C]-};T^2q7um#e5\>EU7T>h+D!Zw5=I(ripXx;!H$l]in]zCa_$DmOi\OQu[=msvUn\~u[>
+    2@_1'Gna!xoDjLajJ=W^GERJ{DLrj+K=*I2Z[wn>[mJ2(TBXkBW~[-sj$pR~7]J4'!ljws?HXX;<
+    ^>XCrnwGR^AT_YA_\Kz?i$seiDH>Ea$mCCV[p$H!,oJ\G1^[@]H_s_DB-,xm?pkKx7;+uU]2W-]-
+    VoA>Cv}[GI}T,o]2{{_;+l2uj!aWc;amZ}DC5ZB+uQK1IpE3a*]*2[~j^Gn[B2op\9Xvu,an=mFE
+    IjwY5swG;;3O$Hue3T[B#@'BnB[-(9"{SsJ''qmU=+eY>IlH{>3^$3;th!XAn;AuRWr#BG9*Oo@A
+    \A{xJ,e[_IC1x~^!Ta+}HZ?BTHI72}$>Do7XE<'Dex[<U[Na>IZ\1usEYYRqBEC2QQ?ZdDK7WYYG
+    C^7$D(DnD-A*\2OUWaxnZGlm>pn1OrW}]RsrCOk[W{Q}pD72K'z=]XKA7weB]+>AI}-XH{sU1u-C
+    UARZ=\(~C?D~1IlOBGv>lvX5e*kTaTm+1GwKXIlbRx*W1TZvea2Y=3URml*s1CYlm>lKs^T$1+[l
+    #C[Q[D5_JOBrY*@I7E\p_{-3r1W]hi7^me^lVI~Kpr=H<E<7v6!GK$}l{!=vlAwB]>IzH$aEoGkB
+    HVAU>zIT~U=*=]E{jslC|Euw]^-_j6XRYU;G5?O=\W5,H~Q$EXajVG=*k$5C7oe@Iz}{lGxHx<?{
+    riI's5pZ<amwA@ezwQGp2UY?EZvWW=J'JZxJ}=!|"[[;Ocoe#2B$>O\\~^J>@JXEl}_}p@1er-<B
+    HOa'X$5$m'[J-*,jZp]Dl=Y!BXolv;]T7Z~9_UGUIZv2?5BlaE^]oK_Iyi{~^A}A\-{J=Remo7we
+    RW<~Bw5{<%$ruEBH{^Gs-{R\?J[C<ovB-<uzHjUp$CV?DR{xTU<5>,U>xmC!Hri-j{O+UQ*Te5v7
+    JJ5ixlZ<r!2}3'IJ{DR#UnvC?Ywe#UswA[*>v\_M#O-W_12ebbrY<lp''xwv}>*IsC[#jl+G37jp
+    IA$sj#,sJ@&{EEHh*+X]aCi\*Z>;YvOo|:^l_?{_OIerJ~'!I3=->Vg;Vk[QeA*!\A*p1H5^u{-m
+    <n=OA>HzpGJ<R?3V7?\{a\J]GVjBz^,>O=QrO+vB<j$C8N1*kYzx-AA{OA7\zTU<Imv>}@Cs1uvj
+    1zVwBr8>E-+!XlO#_rpx!$2Eaza[I'{2a'#izZu5s<GkU{$3&U}CA]/@AV-o=ie58J\G5eEw<[}n
+    WlEjrR*\1p[$JT'$-&1BaV>zJ*,JW+lwZ*3Gj~i7Y~\J2OIn=;GiD#KzR57xup^ZvOsi^~N^kDC!
+    5URkw,~m\!}EnalQK]Cvs-JNlKzO^X,ea'mjZ]2=@zUH$Yi-bm\p}Hwu@]Qj;*kC$_DulpzV[v?D
+    27e,JH7Rj9nr]]5Y;!5@O<VWQX,J_^}<z$;r#A%x^iA=Kj=%3vXlC*E!iYX5N,!El^}_@[7G,9Uj
+    5pfRRmK:<x'Xaw]uiBQK^R3K]K!1BARGEp+IK-@27msGBvJ<'#D=RoI}G7'vQjWJ*\^JBiR;fAE+
+    B?l#-7K!,n1l?RX>[)PaaQV~l;TAzH*!_U]'VK$\,7'Jp=G{7YQ@<A{>*pZZoAn?-_ozs>jQ$m#U
+    l+5[3Q?Js7e*9&JCz*,><};>!nilQTa9WBT~U}W\3T<o:5VZ-.+]nWB9~_V*255nz\#T9,$?JVC*
+    p}-DOfMs5eR-=O#=Gw,|&\*+;#}e#[!zE',{}ygN~r#7svuYs7iEHvt*WKVP&R-V?H\@Ke3T1J$D
+    DlmWov!sn#XUs3AU{KnR*~_aBz=77*enr[G;>1<Jol2p{VK-~]O]=er][#j*QaCD@IC\5a{5V7z<
+    I@7H]~nZ<IOKrc<C5e*1[V'Ysi'@3mWB'AGk]mew5^7O]18EH*#>=kJ'owu?zo7bv-ZIDO\vI^ri
+    Q;UCj:~_}^os!sTD]$|=e5??w!x[W_\k_Y,<vw>6pm+'EA>#N};l@TY!T/rRV2U7+WjiZ!lmr{<l
+    Z^j@2o7}i[rX\n^HzA
+`endprotected
+endmodule
